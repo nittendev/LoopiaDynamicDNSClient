@@ -29,7 +29,7 @@ https://github.com/quartznet
 https://github.com/Horizon0156/XmlRpc
 
 ## Ipify API
-https://api.ipify.org
+https://ipify.org
 
 
 # License
