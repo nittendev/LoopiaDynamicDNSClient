@@ -11,7 +11,8 @@ Update your api username, password and domain in config.json.
  
 Selects your first domain and updates its @ A record according to your current external IP.
 
-This should be correct, arccording to loopias "Prepare your domain for dyndns"
+This should be correct, according to loopias "forbereda-doman-for-vart-dyndns-stod".
+If people have a problem with this I'll update this so it's easy to pick what index to update.
 
 https://support.loopia.se/wiki/forbereda-doman-for-vart-dyndns-stod/
 
