@@ -46,7 +46,6 @@ namespace LoopiaDDNSApp.Domain.Services
                 // We select the first one, which ought to be your IP. TODO: Make actual logic.
                 record = result.First();
 
-                
                if (ip == record.rdata)
                 {
                     return true;
@@ -66,7 +65,6 @@ namespace LoopiaDDNSApp.Domain.Services
                 var status = proxy.UpdateZoneRecord(username, password, domain, subdomain, domainRecord);
 
                 // act on status
-
             }
             catch (Exception e)
             {
