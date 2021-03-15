@@ -11,8 +11,8 @@ namespace LoopiaDDNSApp.Domain.Services
 {
     public class DNSService : IDNSService
     {
-        private readonly IIpifyRepository _ipRepo;
         private readonly Config _config;
+        private readonly IIpifyRepository _ipRepo;
 
         public DNSService(IIpifyRepository ipRepo, IOptions<Config> options)
         {
@@ -22,7 +22,6 @@ namespace LoopiaDDNSApp.Domain.Services
 
         public async Task<bool> UpdateDNS()
         {
-
             // Get external IP
             var ip = await _ipRepo.GetExternalIp();
 
@@ -30,25 +29,25 @@ namespace LoopiaDDNSApp.Domain.Services
             var username = _config.Username;
             var password = _config.Password;
             var domain = _config.Domain;
-            var subdomain = _config.Subdomain;
+            var subDomain = _config.Subdomain;
             var ttl = _config.ttl;
 
             // Build XML RPC Client
             var proxy = XmlRpcProxyGen.Create<ILoopiaServiceProxy>();
             proxy.Url = _config.LoopiaAPIUri;
-            var record = new RecordDto();
 
-            // Contact Loopia, grab a list of all your domainRecords
+            // Contact LoopiaAPI, grab a list of all your domainRecords for this specific domain.
             try
             {
-                var result = proxy.GetZoneRecords(username, password, domain, subdomain); 
+                var result = proxy.GetZoneRecords(username, password, domain, subDomain);
 
-                // We select the first one, which ought to be your IP. TODO: Make actual logic.
-                record = result.First();
+                // We select the first one, which ought to be your IP. TODO: Make actual logic?
+                var record = result.First();
 
-                
-               if (ip == record.rdata)
+                if (ip == record.rdata)
                 {
+                    var currentTime = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
+                    Console.WriteLine(currentTime + "\nNo need to update\n Your current external ip: " + ip + "\n Your current Loopia DNS IP: " + record.rdata);
                     return true;
                 }
 
@@ -63,10 +62,25 @@ namespace LoopiaDDNSApp.Domain.Services
                 };
 
                 // Update
-                var status = proxy.UpdateZoneRecord(username, password, domain, subdomain, domainRecord);
+                var status = proxy.UpdateZoneRecord(username, password, domain, subDomain, domainRecord);
+                var timeNow = DateTime.Now.ToString("MM/dd/yyyy HH:mm:ss");
 
                 // act on status
-
+                switch (status)
+                {
+                    case "OK":
+                        Console.WriteLine("Updated" + timeNow);
+                    break;
+                    case "AUTH_ERROR":
+                        Console.WriteLine(timeNow + "\nAUTH_ERROR, Wrong username or password");
+                    break;
+                    case "BAD_INDATA":
+                        Console.WriteLine(timeNow + "\nBAD_INDATA, Incorrect configuration in config.json");
+                    break;
+                    default:
+                        Console.WriteLine(timeNow + "\nUnknown status reply from Loopia...");
+                    break;
+                }
             }
             catch (Exception e)
             {
