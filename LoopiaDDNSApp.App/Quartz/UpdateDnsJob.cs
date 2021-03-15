@@ -17,6 +17,7 @@ namespace LoopiaDDNSApp.Quartz
 
         public async Task Execute(IJobExecutionContext context)
         {
+            Console.WriteLine("Running update DNS");
             await _dnsService.UpdateDNS();
         }
     }

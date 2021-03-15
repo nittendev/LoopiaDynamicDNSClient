@@ -1,11 +1,10 @@
-﻿using System;
-using LoopiaDDNSApp.Domain.Services;
+﻿using LoopiaDDNSApp.Domain.Services;
 using LoopiaDDNSApp.Domain.Services.Interfaces;
 using LoopiaDDNSApp.InfraStructure.Managers;
 using LoopiaDDNSApp.InfraStructure.Managers.Interfaces;
 using LoopiaDDNSApp.Quartz;
-using LoopiaDDNSApp.Repository.Interfaces;
 using LoopiaDDNSApp.Repository.Ipify;
+using LoopiaDDNSApp.Repository.Ipify.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -39,8 +38,8 @@ namespace LoopiaDDNSApp
                 services.AddSingleton<IJobFactory, JobFactory>();
                 services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
                 services.AddSingleton<QuartzJobRunner>();
-                services.AddScoped<ParseJob>();
-                services.AddSingleton(new JobSchedule(typeof(ParseJob), configuration.GetValue<string>("Settings:Schedule")));
+                services.AddScoped<UpdateDnsJob>();
+                services.AddSingleton(new JobSchedule(typeof(UpdateDnsJob), configuration.GetValue<string>("Settings:Schedule")));
 
                 services.AddHostedService<QuartzHostedService>();
 

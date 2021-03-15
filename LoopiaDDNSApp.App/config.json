@@ -1,16 +1,15 @@
 {
   "Settings": {
     "LoopiaAPIUri": "https://api.loopia.se/RPCSERV",
-    "Username": "USERNAME@loopiaapi",
-    "Password": "PASSWORD",
-    "Domain": "DOMAIN.EXAMPLE",
+    "Username": "nittendev@loopiaapi",
+    "Password": "LoApi2021!!!",
+    "Domain": "eljj.se",
     "Subdomain": "@",
     "TTL": 300,
     "Priority": 0,
     "RData": "type=A",
-    "IPRequestUri": "https://api.ipify.org?format=json",
     "Schedule": "* * * ? * *",
     "Type": "A",
-    "RecordId":  "" 
+    "RecordId":  0 
   }
 }
