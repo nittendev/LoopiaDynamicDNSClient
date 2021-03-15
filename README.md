@@ -2,10 +2,12 @@
 Dynamic DNS Client for Loopia.
 Based on Quartz. Using .NET Core 5.0.
 
-Use sample.config.json in the project folder to create yourself a config.json file
+Use sample.config.json in the project folder to create yourself a config.json file.
+
 Update your api username, password and domain in config.json.
 
 Selects your first domain and updates its @ A record according to your current external IP.
+
 This should be correct, arccording to loopias "Prepare your domain for dyndns"
 
 https://support.loopia.se/wiki/forbereda-doman-for-vart-dyndns-stod/
