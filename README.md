@@ -25,14 +25,22 @@ Set Quartz Crontab schedule according to following examples: https://www.freefor
 }
 
 Acknowledgements
-Following components are being used by core Quartz:
+
+Following components are being used:
+
 Scheduling:
+
 https://github.com/quartznet
+
 XML-RPC Client:
+
 https://github.com/Horizon0156/XmlRpc
 
+
 License
+
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License here.
+
 
 For API documentation, please refer to Quartz.NET site.
 
