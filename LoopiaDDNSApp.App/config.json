@@ -1,9 +1,9 @@
 {
   "Settings": {
     "LoopiaAPIUri": "https://api.loopia.se/RPCSERV",
-    "Username": "nittendev@loopiaapi",
-    "Password": "LoApi2021!!!",
-    "Domain": "eljj.se",
+    "Username": "user@loopiaapi",
+    "Password": "",
+    "Domain": "domain.se",
     "Subdomain": "@",
     "TTL": 300,
     "Priority": 0,
