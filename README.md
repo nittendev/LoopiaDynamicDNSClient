@@ -9,38 +9,6 @@ Selects your first domain and updates it's @ A record according to your current 
 Set Quartz Crontab schedule according to following examples:
 https://www.freeformatter.com/cron-expression-generator-quartz.html
 
-{
-
-  "Settings": {
-  
-    "LoopiaAPIUri": "https://api.loopia.se/RPCSERV",
-    
-    "Username": "USERNAME@loopiaapi",
-    
-    "Password": "PASSWORD",
-    
-    "Domain": "DOMAIN.EXAMPLE",
-    
-    "Subdomain": "@",
-    
-    "TTL": 300,
-    
-    "Priority": 0,
-    
-    "RData": "type=A",
-    
-    "IPRequestUri": "https://api.ipify.org?format=json",
-    
-    "Schedule": "* * * ? * *",
-    
-    "Type": "A",
-    
-    "RecordId":  "" 
-    
-  }
-  
-}
-
 # Acknowledgements
 Following components are being used:
 
