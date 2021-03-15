@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using LoopiaDDNSApp.Repository.Ipify;
 
-namespace LoopiaDDNSApp.Repository.Interfaces
+namespace LoopiaDDNSApp.Repository.Ipify.Interfaces
 {
     public interface IIpifyRepository
     {

@@ -1,5 +1,6 @@
 ﻿using Horizon.XmlRpc.Client;
 using Horizon.XmlRpc.Core;
+using LoopiaDDNSApp.Models;
 
 namespace LoopiaDDNSApp.Domain.Services.Interfaces
 {

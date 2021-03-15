@@ -3,7 +3,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Horizon.XmlRpc.Client;
 using LoopiaDDNSApp.Domain.Services.Interfaces;
-using LoopiaDDNSApp.Repository.Interfaces;
+using LoopiaDDNSApp.Models;
+using LoopiaDDNSApp.Repository.Ipify.Interfaces;
 using Microsoft.Extensions.Options;
 
 namespace LoopiaDDNSApp.Domain.Services
@@ -45,11 +46,11 @@ namespace LoopiaDDNSApp.Domain.Services
                 // We select the first one, which ought to be your IP. TODO: Make actual logic.
                 record = result.First();
 
-                // Check if IP has changed compared to remote. If it has, early exit.
-               /* if (ip == record.rdata)
+                
+               if (ip == record.rdata)
                 {
                     return true;
-                }*/
+                }
 
                 // Create domain record, new IP, append ID.
                 var domainRecord = new RecordDto
@@ -70,81 +71,10 @@ namespace LoopiaDDNSApp.Domain.Services
             catch (Exception e)
             {
                 Console.WriteLine(e);
+                Console.WriteLine("usually this means incorrect API username");
             }
 
             return true;
         }
     }
 }
-
-/*
- * def update_record(Config, ip, record):
-    """Update current A record"""
-
-    # Does the record need updating?
-    if record['rdata'] != new_ip:
-        # Yes it does. Update it!
-        new_record = {
-            'priority': record['priority'],
-            'record_id': record['record_id'],
-            'rdata': new_ip,
-            'type': record['type'],
-            'ttl': record['ttl']
-        }
-
-        try:
-            status = client.updateZoneRecord(
-                    Config.username,
-                    Config.password,
-                    Config.domain,
-                    Config.subdomain,
-                    new_record)
-
-            if Config.subdomain == '@':
-                print('{domain}: {status}'.format(
-                    domain=Config.domain,
-                    status=status))
-            else:
-                print('{subdomain}.{domain}: {status}'.format(
-                    subdomain=Config.subdomain,
-                    domain=Config.domain,
-                    status=status))
-
-        except:
-            api_error()
-
-    else:
-        # Record does not need updating
-        if Config.subdomain == '@':
-            print('{domain}: No change'.format(domain=Config.domain))
-        else:
-            print('{subdomain}.{domain}: No change'.format(
-                subdomain=Config.subdomain,
-                domain=Config.domain))
-
-
-############
-### Main ###
-############
-
-if __name__ == '__main__':
-    # Build XML RPC client
-    client = xmlrpc.client.ServerProxy(
-        uri = 'https://api.loopia.se/RPCSERV',
-        encoding = 'utf-8')
-
-    # Get current A records and public IP address
-    a_records = get_records(Config)
-    new_ip = get_ip()
-
-    # Do we currently have an A record? If not, create one!
-    if len(a_records) == 0:
-        add_record(Config, new_ip)
-
-    else:
-        # Remove all excess A records
-        if len(a_records) > 1:
-            del_excess(Config, a_records[1:])
-
-        # Now let's update the record!
-        update_record(Config, new_ip, a_records [0])*/

@@ -1,4 +1,4 @@
-﻿namespace LoopiaDDNSApp.Domain.Services.Interfaces
+﻿namespace LoopiaDDNSApp.Models
 {
     public struct RecordDto
     {

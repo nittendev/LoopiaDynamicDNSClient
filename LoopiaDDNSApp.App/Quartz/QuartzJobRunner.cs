@@ -18,9 +18,19 @@ namespace LoopiaDDNSApp.Quartz
         {
             using var scope = _serviceProvider.CreateScope();
             var jobType = context.JobDetail.JobType;
-            var job = scope.ServiceProvider.GetRequiredService(jobType) as IJob;
+            try
+            {
+                var job = scope.ServiceProvider.GetRequiredService(jobType) as IJob;
+                await job.Execute(context);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+    
 
-            await job.Execute(context);
+
         }
     }
 }

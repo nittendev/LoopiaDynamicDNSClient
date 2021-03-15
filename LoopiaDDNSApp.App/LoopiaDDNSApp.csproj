@@ -8,8 +8,6 @@
   </PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="10.1.1" />
-		<PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
 		<PackageReference Include="Horizon.XmlRpc.Client" Version="2.5.0" />
 		<PackageReference Include="Horizon.XmlRpc.Core" Version="2.5.0" />
 		<PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.7" />
@@ -29,12 +27,6 @@
 	  <None Update="config.json">
 	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
 	  </None>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="DTOs\Response\" />
-	  <Folder Include="DTOs\Request\" />
-	  <Folder Include="Repository\Ipify\" />
 	</ItemGroup>
 
 </Project>
