@@ -1,4 +1,5 @@
-﻿using LoopiaDDNSApp.Domain.Services;
+﻿using System;
+using LoopiaDDNSApp.Domain.Services;
 using LoopiaDDNSApp.Domain.Services.Interfaces;
 using LoopiaDDNSApp.InfraStructure.Managers;
 using LoopiaDDNSApp.InfraStructure.Managers.Interfaces;
@@ -27,22 +28,31 @@ namespace LoopiaDDNSApp
         {
             return Host.CreateDefaultBuilder(args).ConfigureServices((hostContext, services) =>
             {
-                var configuration = new ConfigurationBuilder().SetBasePath(hostContext.HostingEnvironment.ContentRootPath).AddJsonFile("config.json", false, true).AddEnvironmentVariables().Build();
+                try
+                {
+                    var configuration = new ConfigurationBuilder().SetBasePath(hostContext.HostingEnvironment.ContentRootPath).AddJsonFile("config.json", false, true).AddEnvironmentVariables()
+                        .Build();
 
-                services.AddOptions();
-                services.Configure<Config>(configuration.GetSection("Settings"));
-                
-                services.AddScoped<IHttpClientManager, HttpClientManager>();
-                services.AddScoped<IIpifyRepository, IpifyRepository>();
-                services.AddScoped<IDNSService, DNSService>();
-                services.AddSingleton<IJobFactory, JobFactory>();
-                services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
-                services.AddSingleton<QuartzJobRunner>();
-                services.AddScoped<UpdateDnsJob>();
-                services.AddSingleton(new JobSchedule(typeof(UpdateDnsJob), configuration.GetValue<string>("Settings:Schedule")));
+                    services.AddOptions();
+                    services.Configure<Config>(configuration.GetSection("Settings"));
 
-                services.AddHostedService<QuartzHostedService>();
+                    services.AddScoped<IHttpClientManager, HttpClientManager>();
+                    services.AddScoped<IIpifyRepository, IpifyRepository>();
+                    services.AddScoped<IDNSService, DNSService>();
+                    services.AddSingleton<IJobFactory, JobFactory>();
+                    services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+                    services.AddSingleton<QuartzJobRunner>();
+                    services.AddScoped<UpdateDnsJob>();
+                    services.AddSingleton(new JobSchedule(typeof(UpdateDnsJob), configuration.GetValue<string>("Settings:Schedule")));
 
+                    services.AddHostedService<QuartzHostedService>();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    Console.WriteLine("Missing config.json?");
+                    throw;
+                }
             }).UseWindowsService();
         }
     }
