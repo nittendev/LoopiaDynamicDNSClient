@@ -24,15 +24,15 @@ Set Quartz Crontab schedule according to following examples: https://www.freefor
   }
 }
 
-Acknowledgements
+# Acknowledgements
 
-Following components are being used:
+## Following components are being used:
 
-Scheduling:
+## Quartz .NET:
 
 https://github.com/quartznet
 
-XML-RPC Client:
+## XML-RPC Client:
 
 https://github.com/Horizon0156/XmlRpc
 
