@@ -1,6 +1,6 @@
 # Loopia Dynamic DNS Client
 Dynamic DNS Client for Loopia.
-Based on Quartz.
+Based on Quartz. Using .NET Core 5.0.
 
 Set your username, password and domain in config.json.
 
