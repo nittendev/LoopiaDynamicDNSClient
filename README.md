@@ -4,7 +4,7 @@ Based on Quartz. Using .NET Core 5.0.
 
 Set your username, password and domain in config.json.
 
-Selects your first domain and updates it's @ A record according to your current external IP.
+Selects your first domain and updates its @ A record according to your current external IP.
 
 Set Quartz Crontab schedule according to following examples:
 
