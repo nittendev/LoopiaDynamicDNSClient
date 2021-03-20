@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Horizon.XmlRpc.Client;
 using LoopiaDDNSApp.Domain.Services.Interfaces;
@@ -39,10 +40,12 @@ namespace LoopiaDDNSApp.Domain.Services
             // Contact LoopiaAPI, grab a list of all your domainRecords for this specific domain.
             try
             {
-                var result = proxy.GetZoneRecords(username, password, domain, subDomain);
+                var result = proxy.GetZoneRecords(username, password, domain, subDomain).ToList();
 
-                // We select the first one, which ought to be your IP. TODO: Make actual logic?
-                var record = result.First();
+                // Regex for any valid IPV4 IP.
+                var match = new Regex("^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$");
+                // Select the first valid record. If your domain is configured according to Loopias specs. There should only be one IPV4 address.
+                var record = result.Where(data => match.IsMatch(data.rdata)).ToList().First();
 
                 if (ip == record.rdata)
                 {
@@ -70,16 +73,16 @@ namespace LoopiaDDNSApp.Domain.Services
                 {
                     case "OK":
                         Console.WriteLine("Updated" + timeNow);
-                    break;
+                        break;
                     case "AUTH_ERROR":
                         Console.WriteLine(timeNow + "\nAUTH_ERROR, Wrong username or password");
-                    break;
+                        break;
                     case "BAD_INDATA":
                         Console.WriteLine(timeNow + "\nBAD_INDATA, Incorrect configuration in config.json");
-                    break;
+                        break;
                     default:
                         Console.WriteLine(timeNow + "\nUnknown status reply from Loopia...");
-                    break;
+                        break;
                 }
             }
             catch (Exception e)
